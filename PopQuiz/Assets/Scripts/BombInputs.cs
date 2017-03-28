@@ -80,4 +80,11 @@ public class BombInputs : MonoBehaviour {
 
 	}
 
+	// bumper? 
+
+	// controller vibration
+	void VibrateController() {
+
+	}
+
 }
