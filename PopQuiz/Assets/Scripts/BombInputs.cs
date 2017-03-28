@@ -19,5 +19,18 @@ public class BombInputs : MonoBehaviour {
 
 	}
 
+	void redWire() {
+		// b button input here
 
+	}
+
+	void yellowWire() {
+		// y button input here
+
+	}
+
+	void greenWire() {
+		// a button input here
+
+	}
 }
