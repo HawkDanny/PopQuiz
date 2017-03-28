@@ -14,68 +14,66 @@ public class BombInputs : MonoBehaviour {
 		
 	}
 
-
-    void BlueWire()
-    {
-        if (Input.GetButtonDown("2"))
-        {
+	// x button
+    void BlueWire() {
+        if (Input.GetButtonDown("2")) {
 
         }
     }
+
+	// b button
 	void RedWire() {
         if(Input.GetButtonDown("1")){
 
         }
-        // b button input here
-
-
     }
 
-
+	// y button
 	void YellowWire() {
         if (Input.GetButtonDown("3"))
         {
 
         }
-        // y button input here
-
-
     }
 
-
+	// a button
 	void GreenWire() {
         if (Input.GetButtonDown("0"))
         {
 
         }
-        // a button input here
-
     }
 
+	// left trigger
 	void LeftTrigger() {
 		// decide how trigger will change the bomb
 		// left trigger input here
 
 	}
 
+	// right trigger
 	void RightTrigger() {
 		// decide how trigger will change the bomb
 		// right trigger input here
 
 	}
 
+	// d pad up
 	void DPadUp() {
 		
 	}
 
+	// d pad down
 	void DPadDown() {
 
 	}
 
+	// d pad left
 	void DPadLeft() {
 
 	}
 
+	// d pad right
 	void DPadRight() {
 
 	}
