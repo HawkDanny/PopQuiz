@@ -14,23 +14,36 @@ public class BombInputs : MonoBehaviour {
 		
 	}
 
-	void blueWire() {
+	void BlueWire() {
 		// x button input here
 
 	}
 
-	void redWire() {
+	void RedWire() {
 		// b button input here
 
 	}
 
-	void yellowWire() {
+	void YellowWire() {
 		// y button input here
 
 	}
 
-	void greenWire() {
+	void GreenWire() {
 		// a button input here
 
 	}
+
+	void LeftTrigger() {
+		// decide how trigger will change the bomb
+		// left trigger input here
+
+	}
+
+	void RightTrigger() {
+		// decide how trigger will change the bomb
+		// right trigger input here
+
+	}
+
 }
