@@ -13,4 +13,11 @@ public class BombInputs : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	void blueWire() {
+		// x button input here
+
+	}
+
+
 }
