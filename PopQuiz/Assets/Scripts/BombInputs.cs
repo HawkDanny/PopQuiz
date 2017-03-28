@@ -64,4 +64,20 @@ public class BombInputs : MonoBehaviour {
 
 	}
 
+	void DPadUp() {
+		
+	}
+
+	void DPadDown() {
+
+	}
+
+	void DPadLeft() {
+
+	}
+
+	void DPadRight() {
+
+	}
+
 }
