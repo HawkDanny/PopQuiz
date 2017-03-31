@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+
+    public List<string> pageData;
 
 	// Use this for initialization
 	void Start () {
@@ -14,4 +17,14 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void NextPage()
+    {
+
+    }
+
+    public void LastPage()
+    {
+
+    }
 }
