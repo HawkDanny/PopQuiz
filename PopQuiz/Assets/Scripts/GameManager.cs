@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     private bool startToggle;
 
     public Canvas menu;
+    public Canvas studyGuide;
 
     public GameObject studyDefault;
     public GameObject defuseDefault;
@@ -81,6 +82,11 @@ public class GameManager : MonoBehaviour {
             currentPage--;
             studyGuidePage.text = pageData[currentPage];
         }
+    }
+
+    public void CloseStudyGuide()
+    {
+        studyGuide.gameObject.SetActive(false);
     }
 
     void ToggleMenu()
