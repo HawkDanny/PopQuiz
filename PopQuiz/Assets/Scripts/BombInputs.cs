@@ -8,6 +8,9 @@ public class BombInputs : MonoBehaviour {
     bool redConnection = true;
     bool greenConnection = true;
     bool yellowConnection = true;
+    bool triggerDown = true;
+    bool leftBumper = false;
+    bool rightBumper = false;
     enum dPadDir {up, down, left, right};
     List<dPadDir> dpadInput;
     // Use this for initialization
@@ -21,49 +24,37 @@ public class BombInputs : MonoBehaviour {
 	}
 
 	// x button
-    void CutBlueWire() {
+    void BlueWire() {
         if (Input.GetButtonDown("2")) {
-            blueConnection = false;
+            blueConnection = !blueConnection;
         }
     }
 
 	// b button
-	void CutRedWire() {
+	void RedWire() {
         if(Input.GetButtonDown("1")){
-            redConnection = false;
+            redConnection = !redConnection;
         }
         // b button input here
     }
 
 	// y button
-	void CutYellowWire() {
+	void YellowWire() {
         if (Input.GetButtonDown("3"))
         {
-            yellowConnection = false;
+            yellowConnection = !yellowConnection;
         }
         // y button input here
     }
 
 	// a button
-	void CutGreenWire() {
+	void GreenWire() {
         if (Input.GetButtonDown("0"))
         {
-            greenConnection = false;
+            greenConnection = !greenConnection;
         }
         // a button input here
     }
-
-	// left trigger
-	void LeftTrigger() {
-		// decide how trigger will change the bomb
-		// left trigger input here
-	}
-
-	// right trigger
-	void RightTrigger() {
-		// decide how trigger will change the bomb
-		// right trigger input here
-	}
 
 	// d pad up
 	void DPadUp() {
@@ -97,5 +88,20 @@ public class BombInputs : MonoBehaviour {
         }
     }
 
-	// bumper? 
+    void LeftBumper()
+    {
+        if (Input.GetButtonDown("4"))
+        {
+            leftBumper = true;
+        }
+    }
+
+    void RightBumper()
+    {
+        if (Input.GetButtonDown("4"))
+        {
+            leftBumper = true;
+        }
+    }
+    // bumper? 
 }
