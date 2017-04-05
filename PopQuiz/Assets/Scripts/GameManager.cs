@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour {
     public enum GameState { Study,
                                 Defuse,
                                 Menu,
-                                Lose,
-                                Win};
+                                Results};
     public GameState currentGame;
     private GameState lastGame;
 
@@ -51,6 +50,25 @@ public class GameManager : MonoBehaviour {
         studyGuidePage.text = pageData[currentPage];
 
         startToggle = false;
+    }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
+
+    public void Resume()
+    {
+        currentGame = lastGame;
+
+        menu.gameObject.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(lastButton);
+    }
+
+    public void Restart()
+    {
+        //todo
     }
 	
 	// Update is called once per frame
