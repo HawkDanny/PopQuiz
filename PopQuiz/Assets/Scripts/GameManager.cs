@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
-
         if(Input.GetKey(KeyCode.Joystick1Button7) && !startToggle)
         {
             ToggleMenu();
@@ -77,6 +76,10 @@ public class GameManager : MonoBehaviour {
 			BombInput.CutRedWire();
 			BombInput.CutYellowWire();
 			BombInput.CutGreenWire();
+			BombInput.DPadDown();
+			BombInput.DPadUp();
+			BombInput.DPadRight();
+			BombInput.DPadLeft();
 		}
 			
     }
