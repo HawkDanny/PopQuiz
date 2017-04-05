@@ -56,6 +56,15 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
+		// check that you're in the defusing part of the game
+		if (currentGame == GameState.Defuse) {
+			// bomb input methods
+			BombInputs.CutBlueWire();
+			BombInputs.CutRedWire();
+			BombInputs.CutYellowWire();
+			BombInputs.CutGreenWire();
+		}
+			
 
         if(Input.GetKey(KeyCode.Joystick1Button7) && !startToggle)
         {
