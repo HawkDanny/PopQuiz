@@ -18,13 +18,13 @@ public class MenuManager : MonoBehaviour {
 
     public void StartGame()
     {
-        Debug.Log("start game selected");
         Application.LoadLevel("Scenes/Game");
     }
 
     public void QuitGame()
     {
-        Debug.Log("quit game selected");
         Application.Quit();
     }
+
+
 }
