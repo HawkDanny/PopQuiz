@@ -11,6 +11,8 @@ public class BombInputs : MonoBehaviour {
     bool triggerDown = true;
     bool leftBumper = false;
     bool rightBumper = false;
+    bool leftStick = false;
+    bool rightStick = false;
     enum dPadDir {up, down, left, right};
     List<dPadDir> dpadInput;
     // Use this for initialization
@@ -101,6 +103,22 @@ public class BombInputs : MonoBehaviour {
         if (Input.GetButtonDown("4"))
         {
             leftBumper = true;
+        }
+    }
+
+    void LeftStickClick()
+    {
+        if (Input.GetButtonDown("8"))
+        {
+            leftStick = true;
+        }
+    }
+
+    void RightStickClick()
+    {
+        if (Input.GetButtonDown("9"))
+        {
+            rightStick = true;
         }
     }
     // bumper? 
