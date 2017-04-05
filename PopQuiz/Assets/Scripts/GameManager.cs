@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour {
     public enum GameState { Study,
                                 Defuse,
                                 Menu,
-                                Lose,
-                                Win};
+                                Results};
     public GameState currentGame;
     private GameState lastGame;
 
@@ -24,12 +23,11 @@ public class GameManager : MonoBehaviour {
     private bool startToggle;
 
     public Canvas menu;
+    public Canvas studyGuide;
 
     public GameObject studyDefault;
-    public GameObject defuseDefault;
     public GameObject menuDefault;
-    public GameObject loseDefault;
-    public GameObject winDefault;
+    public GameObject resultsDefault;
 
 	public GameObject bombInputsObject; 	// GameObject with BombInputs Script
 	private BombInputs BombInput;			// BombInputs Script of above object
@@ -57,10 +55,42 @@ public class GameManager : MonoBehaviour {
 
         startToggle = false;
     }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
+
+    public void Resume()
+    {
+        currentGame = lastGame;
+
+        menu.gameObject.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(lastButton);
+    }
+
+    public void Restart()
+    {
+        //todo
+    }
 	
 	// Update is called once per frame
 	void Update () {
         
+<<<<<<< HEAD
+=======
+		// check that you're in the defusing part of the game
+		if (currentGame == GameState.Defuse) {
+			// bomb input methods
+			BombInputs.CutBlueWire();
+			BombInputs.CutRedWire();
+			BombInputs.CutYellowWire();
+			BombInputs.CutGreenWire();
+		}
+			
+
+>>>>>>> origin/master
         if(Input.GetKey(KeyCode.Joystick1Button7) && !startToggle)
         {
             ToggleMenu();
@@ -102,6 +132,13 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void CloseStudyGuide()
+    {
+        studyGuide.gameObject.SetActive(false);
+
+        currentGame = GameState.Defuse;
+    }
+
     void ToggleMenu()
     {
         if(currentGame == GameState.Menu)
@@ -120,9 +157,6 @@ public class GameManager : MonoBehaviour {
             {
                 case GameState.Study:
                     lastButton = studyDefault;
-                    break;
-                case GameState.Defuse:
-                    lastButton = defuseDefault;
                     break;
             }
 

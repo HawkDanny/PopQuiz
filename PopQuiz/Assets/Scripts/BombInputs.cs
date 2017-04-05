@@ -4,75 +4,82 @@ using UnityEngine;
 
 public class BombInputs : MonoBehaviour {
 
-	// Bomb model parts//
-	public GameObject[] roundButtons = new GameObject[4];
-	public GameObject redWire;
-	public GameObject blueWire;
+    // Bomb model parts//
+    public GameObject[] roundButtons = new GameObject[4];
+    public GameObject redWire;
+    public GameObject blueWire;
 
-	// Renderers
-	private Renderer redWireRend;
-	private Renderer blueWireRend;
+    // Renderers
+    private Renderer redWireRend;
+    private Renderer blueWireRend;
 
 
-	private bool blueConnection = true;
+    private bool blueConnection = true;
     private bool redConnection = true;
     private bool greenConnection = true;
     private bool yellowConnection = true;
-    private enum dPadDir {up, down, left, right};
+    private enum dPadDir { up, down, left, right };
     private List<dPadDir> dpadInput;
 
+    public bool blueConnection = true;
+    public bool redConnection = true;
+    public bool greenConnection = true;
+    public bool yellowConnection = true;
+    public bool triggerDown = true;
+    public bool leftBumper = false;
+    public bool rightBumper = false;
+    public bool leftStick = false;
+    public bool rightStick = false;
+    enum dPadDir { up, down, left, right };
+    List<dPadDir> dpadInput;
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         dpadInput = new List<dPadDir>();
 
-		redWireRend = redWire.GetComponent<Renderer> ();
-		blueWireRend = blueWire.GetComponent<Renderer> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {}
+        redWireRend = redWire.GetComponent<Renderer>();
+        blueWireRend = blueWire.GetComponent<Renderer>();
+    }
 
-	// x button (OR Alternative Keyboard input: numerical keys above abc keys)
+    // Update is called once per frame
+    void Update() { }
+
+    // x button (OR Alternative Keyboard input: numerical keys above abc keys)
     public void CutBlueWire() {
-		if (Input.GetButtonDown("2") || Input.GetKey(KeyCode.Alpha2)) {	
-			// show output (unrender blue wire)
-			//blueWireRend.enabled = false;
+        if (Input.GetButtonDown("2") || Input.GetKey(KeyCode.Alpha2)) {
+            // show output (unrender blue wire)
+            //blueWireRend.enabled = false;
             blueConnection = false;
-			Debug.Log ("CutBlueWire() called and inside GetButtonDown(2) check.");
+            Debug.Log("CutBlueWire() called and inside GetButtonDown(2) check.");
         }
     }
 
-	// b button
-	public void CutRedWire() {
-		if(Input.GetButtonDown("1")|| Input.GetKey(KeyCode.Alpha1)) {
-			//redWireRend.enabled = false;
+    // b button
+    public void CutRedWire() {
+        if (Input.GetButtonDown("1") || Input.GetKey(KeyCode.Alpha1)) {
+            //redWireRend.enabled = false;
             redConnection = false;
-			Debug.Log ("CutRedWire() called and inside GetButtonDown(1) check.");
+            Debug.Log("CutRedWire() called and inside GetButtonDown(1) check.");
         }
-        // b button input here
-
     }
 
-	// y button
-	public void CutYellowWire() {
-		if (Input.GetButtonDown("3") || Input.GetKey(KeyCode.Alpha3))
-  		{
+    // y button
+    public void CutYellowWire()
+    {
+        if (Input.GetButtonDown("3") || Input.GetKey(KeyCode.Alpha3))
+        {
             yellowConnection = false;
-			Debug.Log ("CutYellowWire() called and inside GetButtonDown(3) check.");
-
+            Debug.Log("CutYellowWire() called and inside GetButtonDown(3) check.");
         }
-        // y button input here
     }
 
-	// a button
-	public void CutGreenWire() {
-		if (Input.GetButtonDown("0") || Input.GetKey(KeyCode.Alpha0))
+    // a button
+    public void CutGreenWire() {
+        if (Input.GetButtonDown("0") || Input.GetKey(KeyCode.Alpha0))
         {
             greenConnection = false;
-			Debug.Log ("CutGreenWire() called and inside GetButtonDown(0) check.");
+            Debug.Log("CutGreenWire() called and inside GetButtonDown(0) check.");
         }
-        // a button input here
-
     }
 
 	// left trigger
@@ -86,7 +93,7 @@ public class BombInputs : MonoBehaviour {
 		// decide how trigger will change the bomb
 		// right trigger input here
 	}
-
+    
 	// d pad up
 	public void DPadUp() {
 		if (Input.GetButtonDown("5") || Input.GetKey(KeyCode.Alpha5))
@@ -126,5 +133,36 @@ public class BombInputs : MonoBehaviour {
         }
     }
 
-	// bumper? 
+    public void LeftBumper()
+    {
+        if (Input.GetButtonDown("4"))
+        {
+            leftBumper = true;
+        }
+    }
+
+    public void RightBumper()
+    {
+        if (Input.GetButtonDown("4"))
+        {
+            leftBumper = true;
+        }
+    }
+
+    public void LeftStickClick()
+    {
+        if (Input.GetButtonDown("8"))
+        {
+            leftStick = true;
+        }
+    }
+
+    public void RightStickClick()
+    {
+        if (Input.GetButtonDown("9"))
+        {
+            rightStick = true;
+        }
+    }
+    // bumper? 
 }

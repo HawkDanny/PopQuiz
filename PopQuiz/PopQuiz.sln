@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopQuiz", "Assembly-CSharp.csproj", "{08654AA0-4911-D357-A6BD-F331F7ED8B17}"
+=======
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{4E48407E-8666-21CF-5E02-4762BF0AFE44}") = "PopQuiz", "Assembly-CSharp.csproj", "{08654AA0-4911-D357-A6BD-F331F7ED8B17}"
+>>>>>>> origin/master
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
