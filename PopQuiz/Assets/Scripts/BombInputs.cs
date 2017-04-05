@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BombInputs : MonoBehaviour {
 
-    bool blueConnection = true;
-    bool redConnection = true;
-    bool greenConnection = true;
-    bool yellowConnection = true;
-    bool triggerDown = true;
-    bool leftBumper = false;
-    bool rightBumper = false;
-    bool leftStick = false;
-    bool rightStick = false;
+    public bool blueConnection = true;
+    public bool redConnection = true;
+    public bool greenConnection = true;
+    public bool yellowConnection = true;
+    public bool triggerDown = true;
+    public bool leftBumper = false;
+    public bool rightBumper = false;
+    public bool leftStick = false;
+    public bool rightStick = false;
     enum dPadDir {up, down, left, right};
     List<dPadDir> dpadInput;
     // Use this for initialization
