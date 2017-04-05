@@ -31,15 +31,21 @@ public class GameManager : MonoBehaviour {
     public GameObject loseDefault;
     public GameObject winDefault;
 
+	public GameObject bombInputsObject; 	// GameObject with BombInputs Script
+	private BombInputs BombInput;			// BombInputs Script of above object
+
     private GameObject lastButton;
 
     public GameObject eventSystem;
+
 
 	// Use this for initialization
 	void Start () {
         //Cursor.visible = true;
         //Cursor.lockState = CursorLockMode.None;
         currentGame = GameState.Study;
+
+		BombInput = GetComponent<BombInputs> ();
 
         currentPage = 0;
 
@@ -63,6 +69,16 @@ public class GameManager : MonoBehaviour {
 
         startToggle = Input.GetKey(KeyCode.Joystick1Button7);
 
+
+		if (currentGame == GameState.Defuse)
+		{ 
+			// bomb input methods
+			BombInput.CutBlueWire();
+			BombInput.CutRedWire();
+			BombInput.CutYellowWire();
+			BombInput.CutGreenWire();
+		}
+			
     }
 
     public void NextPage()
