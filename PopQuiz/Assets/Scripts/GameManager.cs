@@ -26,10 +26,8 @@ public class GameManager : MonoBehaviour {
     public Canvas studyGuide;
 
     public GameObject studyDefault;
-    public GameObject defuseDefault;
     public GameObject menuDefault;
-    public GameObject loseDefault;
-    public GameObject winDefault;
+    public GameObject resultsDefault;
 
     private GameObject lastButton;
 
@@ -105,6 +103,8 @@ public class GameManager : MonoBehaviour {
     public void CloseStudyGuide()
     {
         studyGuide.gameObject.SetActive(false);
+
+        currentGame = GameState.Defuse;
     }
 
     void ToggleMenu()
@@ -125,9 +125,6 @@ public class GameManager : MonoBehaviour {
             {
                 case GameState.Study:
                     lastButton = studyDefault;
-                    break;
-                case GameState.Defuse:
-                    lastButton = defuseDefault;
                     break;
             }
 
