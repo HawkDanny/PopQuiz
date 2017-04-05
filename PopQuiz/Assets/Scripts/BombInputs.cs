@@ -13,23 +13,15 @@ public class BombInputs : MonoBehaviour {
     private Renderer redWireRend;
     private Renderer blueWireRend;
 
-
     private bool blueConnection = true;
     private bool redConnection = true;
     private bool greenConnection = true;
     private bool yellowConnection = true;
-    private enum dPadDir { up, down, left, right };
-    private List<dPadDir> dpadInput;
-
-    public bool blueConnection = true;
-    public bool redConnection = true;
-    public bool greenConnection = true;
-    public bool yellowConnection = true;
-    public bool triggerDown = true;
-    public bool leftBumper = false;
-    public bool rightBumper = false;
-    public bool leftStick = false;
-    public bool rightStick = false;
+    private bool triggerDown = true;
+    private bool leftBumper = false;
+    private bool rightBumper = false;
+    private bool leftStick = false;
+    private bool rightStick = false;
     enum dPadDir { up, down, left, right };
     List<dPadDir> dpadInput;
 

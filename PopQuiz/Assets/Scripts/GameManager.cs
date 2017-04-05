@@ -43,7 +43,8 @@ public class GameManager : MonoBehaviour {
         //Cursor.lockState = CursorLockMode.None;
         currentGame = GameState.Study;
 
-		BombInput = GetComponent<BombInputs> ();
+		// Get script from bombInputsObject
+		BombInput = bombInputsObject.GetComponent<BombInputs> ();
 
         currentPage = 0;
 
@@ -77,15 +78,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// check that you're in the defusing part of the game
-		if (currentGame == GameState.Defuse) {
-			// bomb input methods
-			BombInputs.CutBlueWire();
-			BombInputs.CutRedWire();
-			BombInputs.CutYellowWire();
-			BombInputs.CutGreenWire();
-		}
-			
+		
         if(Input.GetKey(KeyCode.Joystick1Button7) && !startToggle)
         {
             ToggleMenu();
@@ -93,7 +86,7 @@ public class GameManager : MonoBehaviour {
 
         startToggle = Input.GetKey(KeyCode.Joystick1Button7);
 
-
+		// Button Handling in DEFUSE State
 		if (currentGame == GameState.Defuse)
 		{ 
 			// bomb input methods
