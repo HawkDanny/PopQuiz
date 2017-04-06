@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
 
     public Canvas menu;
     public Canvas studyGuide;
+    public Canvas results;
 
     public GameObject studyDefault;
     public GameObject menuDefault;
@@ -56,6 +57,37 @@ public class GameManager : MonoBehaviour {
 
         startToggle = false;
     }
+	
+	// Update is called once per frame
+	void Update () {
+		
+        if(Input.GetKey(KeyCode.Joystick1Button7) && !startToggle && currentGame != GameState.Results )
+        {
+            ToggleMenu();
+        }
+
+        if(Input.GetKey(KeyCode.Joystick1Button0) && Input.GetKey(KeyCode.Joystick1Button1) && currentGame == GameState.Defuse)
+        {
+            OpenResults();
+        }
+
+        startToggle = Input.GetKey(KeyCode.Joystick1Button7);
+
+		// Button Handling in DEFUSE State
+		if (currentGame == GameState.Defuse)
+		{ 
+			// bomb input methods
+			//BombInput.CutBlueWire();
+			//BombInput.CutRedWire();
+			//BombInput.CutYellowWire();
+			//BombInput.CutGreenWire();
+			//BombInput.DPadDown();
+			//BombInput.DPadUp();
+			//BombInput.DPadRight();
+			//BombInput.DPadLeft();
+		}
+			
+    }
 
     public void CloseGame()
     {
@@ -74,32 +106,17 @@ public class GameManager : MonoBehaviour {
     public void Restart()
     {
         //todo
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-        if(Input.GetKey(KeyCode.Joystick1Button7) && !startToggle)
-        {
-            ToggleMenu();
-        }
+        currentGame = GameState.Study;
 
-        startToggle = Input.GetKey(KeyCode.Joystick1Button7);
+        menu.gameObject.SetActive(false);
+        results.gameObject.SetActive(false);
+        studyGuide.gameObject.SetActive(true);
 
-		// Button Handling in DEFUSE State
-		if (currentGame == GameState.Defuse)
-		{ 
-			// bomb input methods
-			BombInput.CutBlueWire();
-			BombInput.CutRedWire();
-			BombInput.CutYellowWire();
-			BombInput.CutGreenWire();
-			BombInput.DPadDown();
-			BombInput.DPadUp();
-			BombInput.DPadRight();
-			BombInput.DPadLeft();
-		}
-			
+        EventSystem.current.SetSelectedGameObject(studyDefault);
+
+        currentPage = 0;
+
+        studyGuidePage.text = pageData[currentPage];
     }
 
     public void NextPage()
@@ -127,6 +144,15 @@ public class GameManager : MonoBehaviour {
         currentGame = GameState.Defuse;
     }
 
+    public void OpenResults()
+    {
+        currentGame = GameState.Results;
+
+        results.gameObject.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(resultsDefault);
+    }
+
     void ToggleMenu()
     {
         if(currentGame == GameState.Menu)
@@ -145,6 +171,9 @@ public class GameManager : MonoBehaviour {
             {
                 case GameState.Study:
                     lastButton = studyDefault;
+                    break;
+                case GameState.Defuse:
+                    lastButton = null;
                     break;
             }
 
