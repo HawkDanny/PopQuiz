@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour {
             ToggleMenu();
         }
 
-        if(Input.GetKey(KeyCode.Joystick1Button0) && Input.GetKey(KeyCode.Joystick1Button1) && currentGame == GameState.Defuse)
+        if(timer <= 0)
         {
             OpenResults();
         }
@@ -81,7 +81,8 @@ public class GameManager : MonoBehaviour {
         if(currentGame != GameState.Results)
         {
             timer -= Time.deltaTime;
-            timerText.text = ((int)timer).ToString();
+
+            MakeTimerFormat(timer);
         }
 
         startToggle = Input.GetKey(KeyCode.Joystick1Button7);
@@ -196,6 +197,14 @@ public class GameManager : MonoBehaviour {
 
             EventSystem.current.SetSelectedGameObject(menuDefault);
         }
+    }
+
+    private void MakeTimerFormat(float time)
+    {
+        int minutes = (int)(time / 60);
+        int seconds = (int)(time % 60);
+
+        timerText.text = minutes.ToString() + ":" + seconds.ToString();
     }
 
     public void LoadPageData()
