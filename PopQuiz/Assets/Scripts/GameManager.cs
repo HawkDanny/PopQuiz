@@ -62,7 +62,11 @@ public class GameManager : MonoBehaviour {
 
         timer = 300f;
 
+<<<<<<< Updated upstream
 
+=======
+        //timerText.text = timer;
+>>>>>>> Stashed changes
     }
 	
 	// Update is called once per frame
