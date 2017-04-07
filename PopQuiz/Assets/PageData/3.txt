@@ -1,1 +1,7 @@
-temp 3
+9. Press DPad Left
+
+10. Press DPad Right
+
+11. Toggle Right Stick
+
+12. Press A 
