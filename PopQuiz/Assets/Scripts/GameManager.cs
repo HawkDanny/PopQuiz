@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour {
 
         timer = 300f;
 
-        timerText.text = timer;
+
     }
 	
 	// Update is called once per frame
@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour {
         if(currentGame != GameState.Results)
         {
             timer -= Time.deltaTime;
+            timerText.text = ((int)timer).ToString();
         }
 
         startToggle = Input.GetKey(KeyCode.Joystick1Button7);
@@ -203,15 +204,16 @@ public class GameManager : MonoBehaviour {
 
         string line = "";
 
-        for(int i = 1; i < 7; i++)
+        for(int i = 1; i <= 3; i++)
         {
-            sr = File.OpenText("Assets\\PageData\\" + i + ".txt");
+            sr = File.OpenText("Assets/PageData/" + i + ".txt");
 
             pageData.Add("");
 
             while ((line = sr.ReadLine()) != null)
             {
                 pageData[i - 1] += line;
+                pageData[i - 1] += '\n';
             }
         }
     }
