@@ -37,9 +37,12 @@ public class GameManager : MonoBehaviour {
 
     public GameObject eventSystem;
 
+    private float timer;
+    public Text timerText;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         //Cursor.visible = true;
         //Cursor.lockState = CursorLockMode.None;
         currentGame = GameState.Study;
@@ -56,6 +59,10 @@ public class GameManager : MonoBehaviour {
         studyGuidePage.text = pageData[currentPage];
 
         startToggle = false;
+
+        timer = 300f;
+
+        timerText.text = timer;
     }
 	
 	// Update is called once per frame
@@ -69,6 +76,11 @@ public class GameManager : MonoBehaviour {
         if(Input.GetKey(KeyCode.Joystick1Button0) && Input.GetKey(KeyCode.Joystick1Button1) && currentGame == GameState.Defuse)
         {
             OpenResults();
+        }
+
+        if(currentGame != GameState.Results)
+        {
+            timer -= Time.deltaTime;
         }
 
         startToggle = Input.GetKey(KeyCode.Joystick1Button7);
