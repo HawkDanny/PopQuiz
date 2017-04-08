@@ -8,10 +8,14 @@ public class BombInputs : MonoBehaviour {
     public GameObject[] roundButtons = new GameObject[4];
     public GameObject redWire;
     public GameObject blueWire;
+    public GameObject greenWire;
+    public GameObject yellowWire;
 
     // Renderers
     private Renderer redWireRend;
     private Renderer blueWireRend;
+    private Renderer greenWireRend;
+    private Renderer yellowWireRend;
 
     private bool blueConnection = true;
     private bool redConnection = true;
@@ -22,35 +26,76 @@ public class BombInputs : MonoBehaviour {
     private bool rightBumper = false;
     private bool leftStick = false;
     private bool rightStick = false;
-    enum dPadDir { up, down, left, right };
-    List<dPadDir> dpadInput;
+    float lastVert;
+    float lastHoriz;
+    enum inputs { a, x, y, b, green, red, blue, yellow, up, down, left, right };
+    List<inputs> inputList;
 
     // Use this for initialization
     void Start() {
-        dpadInput = new List<dPadDir>();
+        inputList = new List<inputs>();
 
         redWireRend = redWire.GetComponent<Renderer>();
         blueWireRend = blueWire.GetComponent<Renderer>();
+        greenWireRend = greenWire.GetComponent<Renderer>();
+        yellowWireRend = yellowWire.GetComponent<Renderer>();
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update() {
+        CutBlueWire();
+        CutRedWire();
+        CutYellowWire();
+        CutGreenWire();
+        LeftStickClick();
+        RightStickClick();
+        DPadUp();
+        DPadDown();
+        DPadLeft();
+        DPadRight();
+        lastVert = Input.GetAxis("Vertical");
+        lastHoriz = Input.GetAxis("Horizontal");
+    }
 
     // x button (OR Alternative Keyboard input: numerical keys above abc keys)
     public void CutBlueWire() {
-        if (Input.GetButtonDown("2") || Input.GetKey(KeyCode.Alpha2)) {
+        if (Input.GetKeyDown("joystick button 2") || Input.GetKey(KeyCode.Alpha2))
+        {
             // show output (unrender blue wire)
-            //blueWireRend.enabled = false;
-            blueConnection = false;
+            if (!LeftBumper() && !RightBumper())
+            {
+                inputList.Add(inputs.x);
+            }
+            else
+            {
+                if (blueConnection)
+                {
+                    inputList.Add(inputs.blue);
+                    blueConnection = false;
+                    blueWireRend.enabled = false;
+                }
+            }
             Debug.Log("CutBlueWire() called and inside GetButtonDown(2) check.");
         }
     }
 
     // b button
     public void CutRedWire() {
-        if (Input.GetButtonDown("1") || Input.GetKey(KeyCode.Alpha1)) {
+        if (Input.GetKeyDown("joystick button 1") || Input.GetKey(KeyCode.Alpha1)) {
             //redWireRend.enabled = false;
-            redConnection = false;
+            if (!LeftBumper() && !RightBumper())
+            {
+                inputList.Add(inputs.b);
+            }
+            else
+            {
+                if (redConnection)
+                {
+                    inputList.Add(inputs.red);
+                    redConnection = false;
+                    redWireRend.enabled = false;
+                }
+            }
             Debug.Log("CutRedWire() called and inside GetButtonDown(1) check.");
         }
     }
@@ -58,102 +103,142 @@ public class BombInputs : MonoBehaviour {
     // y button
     public void CutYellowWire()
     {
-        if (Input.GetButtonDown("3") || Input.GetKey(KeyCode.Alpha3))
+        if (Input.GetKeyDown("joystick button 3") || Input.GetKey(KeyCode.Alpha3))
         {
-            yellowConnection = false;
+            if (!LeftBumper() &&  !RightBumper())
+            {
+                inputList.Add(inputs.y);
+            }
+            else
+            {
+                if (yellowConnection)
+                {
+                    inputList.Add(inputs.yellow);
+                    yellowConnection = false;
+                    yellowWireRend.enabled = false;
+                }
+            }
             Debug.Log("CutYellowWire() called and inside GetButtonDown(3) check.");
         }
     }
 
     // a button
     public void CutGreenWire() {
-        if (Input.GetButtonDown("0") || Input.GetKey(KeyCode.Alpha0))
+        if (Input.GetKeyDown("joystick button 0") || Input.GetKey(KeyCode.Alpha0))
         {
-            greenConnection = false;
+            if (!LeftBumper() && !RightBumper())
+            {
+                inputList.Add(inputs.a);
+            }
+            else
+            {
+                if (greenConnection)
+                {
+                    inputList.Add(inputs.green);
+                    greenConnection = false;
+                    greenWireRend.enabled = false;
+                }
+            }
             Debug.Log("CutGreenWire() called and inside GetButtonDown(0) check.");
         }
     }
 
-	// left trigger
-	public void LeftTrigger() {
-		// decide how trigger will change the bomb
-		// left trigger input here
-	}
-
-	// right trigger
-	public void RightTrigger() {
-		// decide how trigger will change the bomb
-		// right trigger input here
-	}
-    
 	// d pad up
 	public void DPadUp() {
-		if (Input.GetButtonDown("5") || Input.GetKey(KeyCode.Alpha5))
+        float tempVert = Input.GetAxis("Vertical");
+        if (tempVert == 1 || Input.GetKey(KeyCode.Alpha5))
         {
-            dpadInput.Add(dPadDir.up);
-			Debug.Log ("DPadUp() called and inside GetButtonDown(5) check.");
+            if (tempVert != lastVert)
+            {
+                inputList.Add(inputs.up);
+                Debug.Log("DPadUp() called and inside GetButtonDown(5) check.");
+            }
 
         }
     }
 
 	// d pad down
 	public void DPadDown() {
-		if (Input.GetButtonDown("6") || Input.GetKey(KeyCode.Alpha6))
+        float tempVert = Input.GetAxis("Vertical");
+        if (tempVert == -1 || Input.GetKey(KeyCode.Alpha6))
         {
-            dpadInput.Add(dPadDir.down);
-			Debug.Log ("DPadDown() called and inside GetButtonDown(6) check.");
+            if (tempVert != lastVert)
+            {
+                inputList.Add(inputs.down);
+                Debug.Log("DPadDown() called and inside GetButtonDown(6) check.");
+            }
         }
     }
 
 	// d pad left
 	public void DPadLeft() {
-		if (Input.GetButtonDown("7") || Input.GetKey(KeyCode.Alpha7))
+        float tempHoriz = Input.GetAxis("Horizontal");
+        if (tempHoriz == -1 || Input.GetKey(KeyCode.Alpha7))
         {
-            dpadInput.Add(dPadDir.left);
-			Debug.Log ("DPadLeft() called and inside GetButtonDown(7) check.");
+            if (tempHoriz != lastHoriz)
+            {
+                inputList.Add(inputs.left);
+                Debug.Log("DPadLeft() called and inside GetButtonDown(7) check.");
+            }
 
         }
     }
 
 	// d pad right
 	public void DPadRight() {
-		if (Input.GetButtonDown("8") || Input.GetKey(KeyCode.Alpha8))
+        float tempHoriz = Input.GetAxis("Horizontal");
+        if (tempHoriz == 1 || Input.GetKey(KeyCode.Alpha8))
         {
-            dpadInput.Add(dPadDir.right);
-			Debug.Log ("DPadRight() called and inside GetButtonDown(8) check.");
+            if (tempHoriz != lastHoriz)
+            {
+                inputList.Add(inputs.right);
+                Debug.Log("DPadRight() called and inside GetButtonDown(8) check.");
+            }
 
         }
     }
 
-    public void LeftBumper()
+    //For left bumper
+    public bool LeftBumper()
     {
-        if (Input.GetButtonDown("4"))
+        if (Input.GetKey("joystick button 4"))
         {
             leftBumper = true;
+            Debug.Log("LeftBumper() called and inside GetButtonDown(4) check.");
+            return true;
         }
+        return false;
     }
 
-    public void RightBumper()
+    //For right bumper
+    public bool RightBumper()
     {
-        if (Input.GetButtonDown("4"))
+        if (Input.GetKey("joystick button 5"))
         {
             leftBumper = true;
+            Debug.Log("RightBumper() called and inside GetButtonDown(5) check.");
+            return true;
         }
+        return false;
     }
 
+    //For left stick click
     public void LeftStickClick()
     {
-        if (Input.GetButtonDown("8"))
+        if (Input.GetKeyDown("joystick button 8"))
         {
             leftStick = true;
+            Debug.Log("LeftStickClick() called and inside GetButtonDown(8) check.");
         }
     }
 
+    //For right stick click
     public void RightStickClick()
     {
-        if (Input.GetButtonDown("9"))
+        if (Input.GetKeyDown("joystick button 9"))
         {
             rightStick = true;
+            Debug.Log("RightStickClick() called and inside GetButtonDown(9) check.");
         }
     }
     // bumper? 
