@@ -93,6 +93,7 @@ public class BombInputs : MonoBehaviour {
         }
     }
 
+    //Checks status of inputs versus correct inputs
     public void CheckDefuse()
     {
         for(int i = 0; i < inputList.Count; i++)
@@ -114,7 +115,7 @@ public class BombInputs : MonoBehaviour {
 
     // x button (OR Alternative Keyboard input: numerical keys above abc keys)
     public void CutBlueWire() {
-        if (Input.GetKeyDown("joystick button 2") || Input.GetKey(KeyCode.Alpha2))
+        if (Input.GetKeyDown("joystick button 2") || Input.GetKeyDown(KeyCode.Alpha2))
         {
             // show output (unrender blue wire)
             if (!LeftBumper() && !RightBumper())
@@ -136,7 +137,7 @@ public class BombInputs : MonoBehaviour {
 
     // b button
     public void CutRedWire() {
-        if (Input.GetKeyDown("joystick button 1") || Input.GetKey(KeyCode.Alpha1)) {
+        if (Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.Alpha1)) {
             //redWireRend.enabled = false;
             if (!LeftBumper() && !RightBumper())
             {
@@ -158,7 +159,7 @@ public class BombInputs : MonoBehaviour {
     // y button
     public void CutYellowWire()
     {
-        if (Input.GetKeyDown("joystick button 3") || Input.GetKey(KeyCode.Alpha3))
+        if (Input.GetKeyDown("joystick button 3") || Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (!LeftBumper() &&  !RightBumper())
             {
@@ -179,7 +180,7 @@ public class BombInputs : MonoBehaviour {
 
     // a button
     public void CutGreenWire() {
-        if (Input.GetKeyDown("joystick button 0") || Input.GetKey(KeyCode.Alpha0))
+        if (Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.Alpha0))
         {
             if (!LeftBumper() && !RightBumper())
             {
@@ -201,7 +202,7 @@ public class BombInputs : MonoBehaviour {
 	// d pad up
 	public void DPadUp() {
         float tempVert = Input.GetAxis("Vertical");
-        if (tempVert == 1 || Input.GetKey(KeyCode.Alpha5))
+        if (tempVert == 1 || Input.GetKey(KeyCode.UpArrow))
         {
             if (tempVert != lastVert)
             {
@@ -215,7 +216,7 @@ public class BombInputs : MonoBehaviour {
 	// d pad down
 	public void DPadDown() {
         float tempVert = Input.GetAxis("Vertical");
-        if (tempVert == -1 || Input.GetKey(KeyCode.Alpha6))
+        if (tempVert == -1 || Input.GetKey(KeyCode.DownArrow))
         {
             if (tempVert != lastVert)
             {
@@ -228,7 +229,7 @@ public class BombInputs : MonoBehaviour {
 	// d pad left
 	public void DPadLeft() {
         float tempHoriz = Input.GetAxis("Horizontal");
-        if (tempHoriz == -1 || Input.GetKey(KeyCode.Alpha7))
+        if (tempHoriz == -1 || Input.GetKey(KeyCode.LeftArrow))
         {
             if (tempHoriz != lastHoriz)
             {
@@ -242,7 +243,7 @@ public class BombInputs : MonoBehaviour {
 	// d pad right
 	public void DPadRight() {
         float tempHoriz = Input.GetAxis("Horizontal");
-        if (tempHoriz == 1 || Input.GetKey(KeyCode.Alpha8))
+        if (tempHoriz == 1 || Input.GetKey(KeyCode.RightArrow))
         {
             if (tempHoriz != lastHoriz)
             {
@@ -256,7 +257,7 @@ public class BombInputs : MonoBehaviour {
     //For left bumper
     public bool LeftBumper()
     {
-        if (Input.GetKey("joystick button 4"))
+        if (Input.GetKey("joystick button 4") || Input.GetKey(KeyCode.W))
         {
             leftBumper = true;
             Debug.Log("LeftBumper() called and inside GetButtonDown(4) check.");
@@ -268,7 +269,7 @@ public class BombInputs : MonoBehaviour {
     //For right bumper
     public bool RightBumper()
     {
-        if (Input.GetKey("joystick button 5"))
+        if (Input.GetKey("joystick button 5") || Input.GetKey(KeyCode.S))
         {
             leftBumper = true;
             Debug.Log("RightBumper() called and inside GetButtonDown(5) check.");
@@ -280,7 +281,7 @@ public class BombInputs : MonoBehaviour {
     //For left stick click
     public void LeftStickClick()
     {
-        if (Input.GetKeyDown("joystick button 8"))
+        if (Input.GetKeyDown("joystick button 8") || Input.GetKey(KeyCode.Minus))
         {
             leftStick = true;
             inputList.Add(inputs.leftStick);
@@ -291,7 +292,7 @@ public class BombInputs : MonoBehaviour {
     //For right stick click
     public void RightStickClick()
     {
-        if (Input.GetKeyDown("joystick button 9"))
+        if (Input.GetKeyDown("joystick button 9") || Input.GetKey(KeyCode.Plus))
         {
             rightStick = true;
             inputList.Add(inputs.rightStick);
