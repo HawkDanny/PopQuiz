@@ -58,12 +58,13 @@ public class GameManager : MonoBehaviour {
     //text that displays the timer
     public Text timerText;
 
+    private bool aPressFromMenu = false;
 
     // Use this for initialization
     void Start () {
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         
 
@@ -120,18 +121,33 @@ public class GameManager : MonoBehaviour {
         startToggle = Input.GetKey(KeyCode.Joystick1Button7);
 
 		// Button Handling in DEFUSE State
-		if (currentGame == GameState.Defuse)
-		{ 
-			// bomb input methods
-			//BombInput.CutBlueWire();
-			//BombInput.CutRedWire();
-			//BombInput.CutYellowWire();
-			//BombInput.CutGreenWire();
-			//BombInput.DPadDown();
-			//BombInput.DPadUp();
-			//BombInput.DPadRight();
-			//BombInput.DPadLeft();
-		}
+		if (currentGame == GameState.Defuse && !aPressFromMenu)
+		{
+            // bomb input methods
+            BombInput.CutBlueWire();
+            BombInput.CutRedWire();
+            BombInput.CutYellowWire();
+            BombInput.CutGreenWire();
+            BombInput.LeftStickClick();
+            BombInput.RightStickClick();
+            BombInput.DPadUp();
+            BombInput.DPadDown();
+            BombInput.DPadLeft();
+            BombInput.DPadRight();
+            BombInput.lastVert = Input.GetAxis("Vertical");
+            BombInput.lastHoriz = Input.GetAxis("Horizontal");
+            BombInput.CheckDefuse();
+
+
+        }
+
+        if(currentGame == GameState.Defuse)
+        {
+            if(!Input.GetKey(KeyCode.Joystick1Button0))
+            {
+                aPressFromMenu = false;
+            }
+        }
 			
     }
 
@@ -152,6 +168,8 @@ public class GameManager : MonoBehaviour {
 
         //set the button to have focus
         EventSystem.current.SetSelectedGameObject(lastButton);
+
+        aPressFromMenu = true;
     }
 
     //restart the game
@@ -214,6 +232,8 @@ public class GameManager : MonoBehaviour {
 
         //set the selelected button to nothing
         EventSystem.current.SetSelectedGameObject(null);
+
+        aPressFromMenu = true;
     }
 
     //show the results menu

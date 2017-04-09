@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class BombInputs : MonoBehaviour {
 
+    public GameManager GameManager;
+
     // Bomb model parts//
     public GameObject[] roundButtons = new GameObject[4];
     public GameObject redWire;
@@ -30,11 +32,15 @@ public class BombInputs : MonoBehaviour {
     private bool leftStick = false;
     private bool rightStick = false;
     private bool inputEnabled = true;
-    private float lastVert;
-    private float lastHoriz;
+    public float lastVert;
+    public float lastHoriz;
     private enum inputs { a, x, y, b, green, red, blue, yellow, up, down, left, right, leftStick, rightStick };
     private List<inputs> inputList;
     private List<inputs> correctInputs;
+
+    private bool aPressFromMenu = false;
+
+    private float resultScreenTimer;
 
     // Use this for initialization
     void Start() {
@@ -64,6 +70,8 @@ public class BombInputs : MonoBehaviour {
         blueWireRend = blueWire.GetComponent<Renderer>();
         greenWireRend = greenWire.GetComponent<Renderer>();
         yellowWireRend = yellowWire.GetComponent<Renderer>();
+
+        resultScreenTimer = 5f;
     }
 
     public void Restart()
@@ -71,26 +79,48 @@ public class BombInputs : MonoBehaviour {
         inputList = new List<inputs>();
         inputEnabled = true;
         resultText.GetComponent<Text>().enabled = false;
+        resultScreenTimer = 5f;
+        blueWireRend.enabled = true;
+        redWireRend.enabled = true;
+        greenWireRend.enabled = true;
+        yellowWireRend.enabled = true;
+        blueConnection = true;
+        redConnection = true;
+        yellowConnection = true;
+        greenConnection = true;
     }
 
     // Update is called once per frame
     void Update() {
-        if (inputEnabled)
-        {
-            CutBlueWire();
-            CutRedWire();
-            CutYellowWire();
-            CutGreenWire();
-            LeftStickClick();
-            RightStickClick();
-            DPadUp();
-            DPadDown();
-            DPadLeft();
-            DPadRight();
-            lastVert = Input.GetAxis("Vertical");
-            lastHoriz = Input.GetAxis("Horizontal");
-            CheckDefuse();
-        }
+        
+        //if (inputEnabled && GameManager.currentGame == GameManager.GameState.Defuse && !aPressFromMenu)
+        //{
+        //    CutBlueWire();
+        //    CutRedWire();
+        //    CutYellowWire();
+        //    CutGreenWire();
+        //    LeftStickClick();
+        //    RightStickClick();
+        //    DPadUp();
+        //    DPadDown();
+        //    DPadLeft();
+        //    DPadRight();
+        //    lastVert = Input.GetAxis("Vertical");
+        //    lastHoriz = Input.GetAxis("Horizontal");
+        //    CheckDefuse();
+        //
+        //    if(!Input.GetKey(KeyCode.Joystick1Button0))
+        //    {
+        //        aPressFromMenu = false;
+        //    }
+        //}
+        //
+        //
+        //
+        //if(GameManager.currentGame != GameManager.GameState.Defuse)
+        //{
+        //    aPressFromMenu = Input.GetKey(KeyCode.Joystick1Button0);
+        //}
     }
 
     //Checks status of inputs versus correct inputs
@@ -103,12 +133,16 @@ public class BombInputs : MonoBehaviour {
                 resultText.GetComponent<Text>().text = "The bomb exploded.";
                 resultText.GetComponent<Text>().enabled = true;
                 inputEnabled = false;
+
+                GameManager.OpenResults();
             }
             if(i == correctInputs.Count-1)
             {
                 resultText.GetComponent<Text>().text = "You defused the bomb!";
                 resultText.GetComponent<Text>().enabled = true;
                 inputEnabled = false;
+
+                GameManager.OpenResults();
             }
         }
     }
@@ -131,7 +165,7 @@ public class BombInputs : MonoBehaviour {
                     blueWireRend.enabled = false;
                 }
             }
-            Debug.Log("CutBlueWire() called and inside GetButtonDown(2) check.");
+            //Debug.Log("CutBlueWire() called and inside GetButtonDown(2) check.");
         }
     }
 
@@ -152,7 +186,7 @@ public class BombInputs : MonoBehaviour {
                     redWireRend.enabled = false;
                 }
             }
-            Debug.Log("CutRedWire() called and inside GetButtonDown(1) check.");
+            //Debug.Log("CutRedWire() called and inside GetButtonDown(1) check.");
         }
     }
 
@@ -174,7 +208,7 @@ public class BombInputs : MonoBehaviour {
                     yellowWireRend.enabled = false;
                 }
             }
-            Debug.Log("CutYellowWire() called and inside GetButtonDown(3) check.");
+            //Debug.Log("CutYellowWire() called and inside GetButtonDown(3) check.");
         }
     }
 
@@ -195,7 +229,7 @@ public class BombInputs : MonoBehaviour {
                     greenWireRend.enabled = false;
                 }
             }
-            Debug.Log("CutGreenWire() called and inside GetButtonDown(0) check.");
+            //Debug.Log("CutGreenWire() called and inside GetButtonDown(0) check.");
         }
     }
 
@@ -207,7 +241,7 @@ public class BombInputs : MonoBehaviour {
             if (tempVert != lastVert)
             {
                 inputList.Add(inputs.up);
-                Debug.Log("DPadUp() called and inside GetButtonDown(5) check.");
+                //Debug.Log("DPadUp() called and inside GetButtonDown(5) check.");
             }
 
         }
@@ -221,7 +255,7 @@ public class BombInputs : MonoBehaviour {
             if (tempVert != lastVert)
             {
                 inputList.Add(inputs.down);
-                Debug.Log("DPadDown() called and inside GetButtonDown(6) check.");
+                //Debug.Log("DPadDown() called and inside GetButtonDown(6) check.");
             }
         }
     }
@@ -234,7 +268,7 @@ public class BombInputs : MonoBehaviour {
             if (tempHoriz != lastHoriz)
             {
                 inputList.Add(inputs.left);
-                Debug.Log("DPadLeft() called and inside GetButtonDown(7) check.");
+                //Debug.Log("DPadLeft() called and inside GetButtonDown(7) check.");
             }
 
         }
@@ -248,7 +282,7 @@ public class BombInputs : MonoBehaviour {
             if (tempHoriz != lastHoriz)
             {
                 inputList.Add(inputs.right);
-                Debug.Log("DPadRight() called and inside GetButtonDown(8) check.");
+                //Debug.Log("DPadRight() called and inside GetButtonDown(8) check.");
             }
 
         }
@@ -260,7 +294,7 @@ public class BombInputs : MonoBehaviour {
         if (Input.GetKey("joystick button 4") || Input.GetKey(KeyCode.W))
         {
             leftBumper = true;
-            Debug.Log("LeftBumper() called and inside GetButtonDown(4) check.");
+            //Debug.Log("LeftBumper() called and inside GetButtonDown(4) check.");
             return true;
         }
         return false;
@@ -272,7 +306,7 @@ public class BombInputs : MonoBehaviour {
         if (Input.GetKey("joystick button 5") || Input.GetKey(KeyCode.S))
         {
             leftBumper = true;
-            Debug.Log("RightBumper() called and inside GetButtonDown(5) check.");
+            //Debug.Log("RightBumper() called and inside GetButtonDown(5) check.");
             return true;
         }
         return false;
@@ -285,7 +319,7 @@ public class BombInputs : MonoBehaviour {
         {
             leftStick = true;
             inputList.Add(inputs.leftStick);
-            Debug.Log("LeftStickClick() called and inside GetButtonDown(8) check.");
+            //Debug.Log("LeftStickClick() called and inside GetButtonDown(8) check.");
         }
     }
 
@@ -296,7 +330,7 @@ public class BombInputs : MonoBehaviour {
         {
             rightStick = true;
             inputList.Add(inputs.rightStick);
-            Debug.Log("RightStickClick() called and inside GetButtonDown(9) check.");
+            //Debug.Log("RightStickClick() called and inside GetButtonDown(9) check.");
         }
     }
     // bumper? 
