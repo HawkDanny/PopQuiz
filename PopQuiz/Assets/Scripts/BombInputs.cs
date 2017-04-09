@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BombInputs : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class BombInputs : MonoBehaviour {
     public GameObject blueWire;
     public GameObject greenWire;
     public GameObject yellowWire;
+
+    public GameObject resultText;
 
     // Renderers
     private Renderer redWireRend;
@@ -26,14 +29,36 @@ public class BombInputs : MonoBehaviour {
     private bool rightBumper = false;
     private bool leftStick = false;
     private bool rightStick = false;
-    float lastVert;
-    float lastHoriz;
-    enum inputs { a, x, y, b, green, red, blue, yellow, up, down, left, right };
-    List<inputs> inputList;
+    private bool inputEnabled = true;
+    private float lastVert;
+    private float lastHoriz;
+    private enum inputs { a, x, y, b, green, red, blue, yellow, up, down, left, right, leftStick, rightStick };
+    private List<inputs> inputList;
+    private List<inputs> correctInputs;
 
     // Use this for initialization
     void Start() {
         inputList = new List<inputs>();
+        correctInputs = new List<inputs>();
+
+        correctInputs.Add(inputs.blue);
+        correctInputs.Add(inputs.y);
+        correctInputs.Add(inputs.y);
+        correctInputs.Add(inputs.y);
+        correctInputs.Add(inputs.up);
+        correctInputs.Add(inputs.down);
+        correctInputs.Add(inputs.down);
+        correctInputs.Add(inputs.red);
+        correctInputs.Add(inputs.rightStick);
+        correctInputs.Add(inputs.rightStick);
+        correctInputs.Add(inputs.a);
+        correctInputs.Add(inputs.x);
+        correctInputs.Add(inputs.left);
+        correctInputs.Add(inputs.right);
+        correctInputs.Add(inputs.leftStick);
+        correctInputs.Add(inputs.green);
+
+        resultText.GetComponent<Text>().enabled = false;
 
         redWireRend = redWire.GetComponent<Renderer>();
         blueWireRend = blueWire.GetComponent<Renderer>();
@@ -41,20 +66,50 @@ public class BombInputs : MonoBehaviour {
         yellowWireRend = yellowWire.GetComponent<Renderer>();
     }
 
+    public void Restart()
+    {
+        inputList = new List<inputs>();
+        inputEnabled = true;
+        resultText.GetComponent<Text>().enabled = false;
+    }
+
     // Update is called once per frame
     void Update() {
-        CutBlueWire();
-        CutRedWire();
-        CutYellowWire();
-        CutGreenWire();
-        LeftStickClick();
-        RightStickClick();
-        DPadUp();
-        DPadDown();
-        DPadLeft();
-        DPadRight();
-        lastVert = Input.GetAxis("Vertical");
-        lastHoriz = Input.GetAxis("Horizontal");
+        if (inputEnabled)
+        {
+            CutBlueWire();
+            CutRedWire();
+            CutYellowWire();
+            CutGreenWire();
+            LeftStickClick();
+            RightStickClick();
+            DPadUp();
+            DPadDown();
+            DPadLeft();
+            DPadRight();
+            lastVert = Input.GetAxis("Vertical");
+            lastHoriz = Input.GetAxis("Horizontal");
+            CheckDefuse();
+        }
+    }
+
+    public void CheckDefuse()
+    {
+        for(int i = 0; i < inputList.Count; i++)
+        {
+            if(inputList[i] != correctInputs[i])
+            {
+                resultText.GetComponent<Text>().text = "The bomb exploded.";
+                resultText.GetComponent<Text>().enabled = true;
+                inputEnabled = false;
+            }
+            if(i == correctInputs.Count-1)
+            {
+                resultText.GetComponent<Text>().text = "You defused the bomb!";
+                resultText.GetComponent<Text>().enabled = true;
+                inputEnabled = false;
+            }
+        }
     }
 
     // x button (OR Alternative Keyboard input: numerical keys above abc keys)
@@ -228,6 +283,7 @@ public class BombInputs : MonoBehaviour {
         if (Input.GetKeyDown("joystick button 8"))
         {
             leftStick = true;
+            inputList.Add(inputs.leftStick);
             Debug.Log("LeftStickClick() called and inside GetButtonDown(8) check.");
         }
     }
@@ -238,6 +294,7 @@ public class BombInputs : MonoBehaviour {
         if (Input.GetKeyDown("joystick button 9"))
         {
             rightStick = true;
+            inputList.Add(inputs.rightStick);
             Debug.Log("RightStickClick() called and inside GetButtonDown(9) check.");
         }
     }

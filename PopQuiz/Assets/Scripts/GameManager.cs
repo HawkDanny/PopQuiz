@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour {
         menu.gameObject.SetActive(false);
         results.gameObject.SetActive(false);
         studyGuide.gameObject.SetActive(true);
+        bombInputsObject.GetComponent<BombInputs>().Restart();
 
         //set the default to the studyGuide's default button
         EventSystem.current.SetSelectedGameObject(studyDefault);
